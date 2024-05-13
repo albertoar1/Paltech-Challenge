@@ -1,10 +1,10 @@
 import sys
 
 class Point:
-    def __init__(self, x, y, z) -> None:
-        self.x = float(x)
-        self.y = float(y)
-        self.z = float(z)
+    def __init__(self, x: float, y: float, z: float) -> None:
+        self.x = x
+        self.y = y
+        self.z = z
     
     def __str__(self) -> str:
         return (f"Intersection at {self.x},{self.y},{self.z}")
@@ -13,10 +13,10 @@ class Point:
         return Vector(self.x-point.x, self.y-point.y, self.z-point.z)
     
 class Vector:
-    def __init__(self, vx, vy, vz) -> None:
-        self.x = float(vx)
-        self.y = float(vy)
-        self.z = float(vz)
+    def __init__(self, vx: float, vy: float, vz: float) -> None:
+        self.x = vx
+        self.y = vy
+        self.z = vz
 
     def __str__(self) -> str:
         return f"Direction: (x: {self.x}, y: {self.y}, z: {self.z}"
@@ -36,6 +36,24 @@ def to_point(line:str):
     return Point(line[0],line[1],line[2])
 
 _, x, y, z, vx, vy, vz = sys.argv
+
+try:
+    x = float(x)
+    y = float(y)
+    z = float(z)
+
+except ValueError:
+    print("Origin point contains non numeric values")
+    sys.exit(1)
+
+try:
+    vx = float(vx)
+    vy = float(vy)
+    vz = float(vz)
+
+except ValueError:
+    print("Direction vector contains non numeric values")
+    sys.exit(1)
 
 vpoint = Point(x,y,z)
 
