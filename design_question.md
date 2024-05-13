@@ -39,7 +39,7 @@ The steps are:
 1. Identify common points between each pair of images (registration) using FLANN.
 2. Compute the Homography matrix to align the images using the common keypoints.
 3. Warp image using the Homography matrix.
-4. Stitch the images by .
+4. Stitch the images by using the common points, which now share the same coordinate system.
 
 FLANN involves calculating the Hamming distance between binary descriptors of keypoints and using the distance ratio between the two nearest matches of a keypoint to eliminate false matches by keeping matches which are below a threshold.
 
@@ -47,7 +47,15 @@ The Homography matrix is computed by solving	the following equation:
 
 ![1715533109090](image/design_question/1715533109090.png)
 
-Where H is the Homography matrix, K' and K are the cameras intrinsic parameter matrices
+Where H is the Homography matrix, K' and K are the cameras intrinsic parameter matrices, while R and R' correspond to the rotations of the cameras, something we do not know.
+
+However this isn't a problem because what we really want to do is use H to transform from one coordinate system to another, and we have multiple keypoints for which we know their coordinates in both systems. We can use the following equation to calculate H:
+
+![1715617359100](image/design_question/1715617359100.png)
+
+Where h is H reshaped and A is defined as follows:
+
+![1715617466521](image/design_question/1715617466521.png)
 
 When it comes to warping we assume planar warping is a good fit because the drone is flying over a field.
 
@@ -55,11 +63,9 @@ When it comes to warping we assume planar warping is a good fit because the dron
 
 Given the image returned by the previous step we proceed to approximate the orientation of each image.
 
-To do this we
+To do this we have to obtain the rotation matrix R for every image. For this we can assign one image the rotation matrix I and, using H, K and K', we can obtain R' using linear algebra, from here we can repeat on each pair, using R' which has already been calculated. Through this we have an orientation for each image in the coordinate system used by one of the images.
 
-## Final pseudocode
-
-Using the pseudocodes described in the previous sections as functions, the final pseudocode is:
+With this we have assigned an orientation to each image. While this orientation is probably different from the one the IMU would have provided, it is still acceptable because it is consistent. This also allows all orientations to be transformed using the same transformation matrix R into the orientation provided by an IMU.
 
 ## Sources
 
@@ -67,3 +73,4 @@ Using the pseudocodes described in the previous sections as functions, the final
 2. Pattern recognition course by Domingo Mery
 3. https://docs.opencv.org/4.x/d5/d6f/tutorial_feature_flann_matcher.html
 4. https://en.wikipedia.org/wiki/Image_stitching
+5. https://www.cse.psu.edu/~rtc12/CSE486/lecture16.pdf
