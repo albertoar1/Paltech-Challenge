@@ -10,7 +10,7 @@ class Point:
         return (f"Intersection at {self.x},{self.y},{self.z}")
     
     def vector(self, point: object):
-        return Vector(self.x-point.x, self.y-point.y, self.z-point.y)
+        return Vector(self.x-point.x, self.y-point.y, self.z-point.z)
     
 class Vector:
     def __init__(self, vx, vy, vz) -> None:
@@ -18,8 +18,11 @@ class Vector:
         self.y = float(vy)
         self.z = float(vz)
 
+    def __str__(self) -> str:
+        return f"Direction: (x: {self.x}, y: {self.y}, z: {self.z}"
+
     def __eq__(self, value: object) -> bool:
-        return self.x/value.x == self.y/value.y == self.z/value.z 
+        return self.x/value.x == self.y/value.y == self.z/value.z
 
     def direction(self, other: object, L: int, R: int):
         if self.x + self.y < other.x + other.y:
@@ -49,20 +52,25 @@ dem.sort(key= lambda point: point.x+point.y)
 
 L = 0
 R = len(dem) - 1
+intersect = False
 
 # Binary search for intersection
 while L <= R:
     point = (L+R)//2
+    # print(dem[point])
     d_vector = dem[point].vector(vpoint)
+    # print(d_vector)
 
     if d_vector!=vector:
         L,R = vector.direction(d_vector,L,R)
 
     else:
         print(dem[point])
+        intersect = True
         break
 
-print("There is no intersection")
+if not intersect:
+    print("There is no intersection")
 
 # for d in dem:
 #     if d.vector(vpoint)==vector:
