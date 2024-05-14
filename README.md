@@ -55,7 +55,7 @@ Checking if the ray can intersect with the plane was considered the same as chec
 
 Only library used is sys, as it is required to read inputs, however this library is included in Python installations.
 
-Expected range was not considered as
+Expected range was not considered as I don't know what the expected range was.
 
 ### Files
 
