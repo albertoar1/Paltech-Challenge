@@ -1,6 +1,8 @@
 import sys
 
 class Point:
+    # This class defines a point
+    # It is used to create vectors and print the intersection point
     def __init__(self, x: float, y: float, z: float) -> None:
         self.x = x
         self.y = y
@@ -13,6 +15,8 @@ class Point:
         return Vector(self.x-point.x, self.y-point.y, self.z-point.z)
     
 class Vector:
+    # This class defines a vector
+    # It is used to compare vectors and move the binary search
     def __init__(self, vx: float, vy: float, vz: float) -> None:
         self.x = vx
         self.y = vy
@@ -31,12 +35,14 @@ class Vector:
             return L,R-1
     
 def to_point(line:str):
+    # Function to map dem.txt lines to Points
     line = line.strip()
     line = line.split(' ')
     return Point(line[0],line[1],line[2])
 
 _, x, y, z, vx, vy, vz = sys.argv
-
+# We check the type of the arguments
+# We do not check for 
 try:
     x = float(x)
     y = float(y)
@@ -67,7 +73,7 @@ dem = map(to_point, dem)
 dem = list(dem)
 dem.sort(key= lambda point: point.x+point.y)
 
-
+# Use of binary search to find the point
 L = 0
 R = len(dem) - 1
 intersect = False
@@ -83,8 +89,10 @@ while L <= R:
         L,R = vector.direction(d_vector,L,R)
 
     else:
+        # Print intersection point and exit program
         print(dem[point])
         intersect = True
+        sys.exit(0)
         break
 
 if not intersect:
