@@ -69,8 +69,8 @@ With this we have assigned an orientation to each image. While this orientation 
 
 ## Sources
 
-1. https://kushalvyas.github.io/stitching.html
-2. Pattern recognition course by Domingo Mery
-3. https://docs.opencv.org/4.x/d5/d6f/tutorial_feature_flann_matcher.html
-4. https://en.wikipedia.org/wiki/Image_stitching
-5. https://www.cse.psu.edu/~rtc12/CSE486/lecture16.pdf
+1. [https://kushalvyas.github.io/stitching.html](https://kushalvyas.github.io/stitching.html)
+2. [Pattern recognition course by Domingo Mery](https://github.com/domingomery/patrones/blob/master/clases/Cap02_Extraccion_de_Caracteristicas/presentations/PAT02_SIFT_ObjectDetection.pptx)
+3. [https://docs.opencv.org/4.x/d5/d6f/tutorial_feature_flann_matcher.html](https://docs.opencv.org/4.x/d5/d6f/tutorial_feature_flann_matcher.html)
+4. [https://en.wikipedia.org/wiki/Image_stitching](https://en.wikipedia.org/wiki/Image_stitching)
+5. [https://www.cse.psu.edu/~rtc12/CSE486/lecture16.pdf](https://www.cse.psu.edu/~rtc12/CSE486/lecture16.pdf)
